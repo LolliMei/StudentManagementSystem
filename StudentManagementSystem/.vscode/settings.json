@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.pas": "objectpascal",
+        "*.md": "markdown",
+        "ui.h": "c"
+    }
+}
