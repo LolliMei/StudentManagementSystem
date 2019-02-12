@@ -13,34 +13,43 @@ void LoadStudentInfo(Student* stud)
 	extern User user;
 	redisReply* reply;
 	redisContext* context = redisConnect("127.0.0.1", 6379);
-	char* cmd;
-	char prefix[100];
-	char key[100];
-	sprintf(prefix, "student:%s", user.username);
-	cmd = ConstructGetCommand(strcat(key, "name"));
-	reply = (redisReply*)redisCommand(context, cmd);
+	reply = (redisReply*)redisCommand(context, "get student:%s:name",user.username);
 	strcpy(stud->name, reply->str);
 
-	ConstructGetCommand(strcat(key, "sex"));
-	reply = (redisReply*)redisCommand(context, cmd);
+	reply = (redisReply*)redisCommand(context, "get student:%s:sex",user.username);
 	strcpy(stud->sex, reply->str);
 
-	ConstructGetCommand(strcat(key, "age"));
-	reply = (redisReply*)redisCommand(context, cmd);
+	reply = (redisReply*)redisCommand(context, "get student:%s:age",user.username);
 	strcpy(stud->age, reply->str);
 
-	ConstructGetCommand(strcat(key, "birth"));
-	reply = (redisReply*)redisCommand(context, cmd);
+
+	reply = (redisReply*)redisCommand(context, "get student:%s:birth",user.username);
 	strcpy(stud->birth, reply->str);
 
+	reply = (redisReply*)redisCommand(context, "get student:%s:grade",user.username);
+	stud->grade = atoi(reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get student:%s:majorcode",user.username);
+	stud->majorcode = atoi(reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get major:code:%d",stud->majorcode);
+	strcpy(stud->major, reply->str);
+
 	free(reply);
-	free(cmd);
 }
 
-
+//学生档案 //TODO:: 增加修改功能
 void StudentProfile()
 {
-
+	Student stud;
+	LoadStudentInfo(&stud);
+	printf("个人基本信息:\n");
+	printf("姓名:%s\n",stud.name);
+	printf("性别:%s\n",stud.sex);
+	printf("出生日期:%s\n", stud.birth);
+	printf("学号:%s\n",user.username);
+	printf("专业:%d级%s(专业代码%d)",stud.grade,stud.major,stud.majorcode);
+	system("pause");
 }
 
 void StudentCourseToSelect()

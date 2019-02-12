@@ -4,6 +4,7 @@ extern User user;
 extern redisContext* context;
 
 
+//管理员修改密码
 void AdminChangePassword()
 {
 	//校验原密码
@@ -32,6 +33,7 @@ void AdminChangePassword()
 	getchar();
 }
 
+//管理员退出
 void AdminExit()
 {
 	user.verify = 0;

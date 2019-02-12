@@ -3,6 +3,49 @@
 extern User user;
 extern redisContext* context;
 
+void LoadTeacherInfo(Teacher* tech)
+{
+	extern User user;
+	redisReply* reply;
+	redisContext* context = redisConnect("127.0.0.1", 6379);
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:name",user.username);
+	strcpy(tech->name, reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:sex",user.username);
+	strcpy(tech->sex, reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:age",user.username);
+	strcpy(tech->age, reply->str);
+
+
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:birth",user.username);
+	strcpy(tech->birth, reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:exp",user.username);
+	tech->exp = atoi(reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get teacher:%s:majorcode",user.username);
+	tech->majorcode = atoi(reply->str);
+
+	reply = (redisReply*)redisCommand(context, "get major:code:%d",tech->majorcode);
+	strcpy(tech->major, reply->str);
+
+	free(reply);
+}
+
+//教师档案 //TODO:: 增加修改功能
+void TeacherProfile()
+{
+	Teacher tech;
+	LoadStudentInfo(&tech);
+	printf("个人基本信息:\n");
+	printf("姓名:%s\n",tech.name);
+	printf("性别:%s\n",tech.sex);
+	printf("出生日期:%s\n", tech.birth);
+	printf("工号:%s\n",user.username);
+	printf("职称:%s %s(专业代码%d)",tech.major,tech.level,tech.majorcode);
+	system("pause");
+}
 
 void TeacherChangePassword()
 {

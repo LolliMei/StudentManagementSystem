@@ -26,14 +26,38 @@ typedef struct
 
 typedef struct
 {
+	int grade;
 	char id[20];
 	char age[3];
 	char birth[20];
 	char name[20];
 	char sex[4];
+	int majorcode;
+	char major[60];
 	ScoreTable scoreTable[20];
 	int tableCount;
 }Student;
+
+typedef struct
+{
+	char id[20];
+	char age[3];
+	char birth[20];
+	char name[20];
+	char sex[4];
+	//教龄
+	int exp;
+	//专业代码
+	int majorcode;
+	//专业名称
+	char major[60];
+	//职称
+	char level[20];
+	//开课id
+	int courseid[10];
+	//简历
+	char desc[1024];
+}Teacher;
 
 typedef struct
 {

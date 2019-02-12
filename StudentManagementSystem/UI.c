@@ -116,6 +116,7 @@ void StudentLogicHandler()
 		{
 		case STUDENT_PROFILE:
 			/* code */
+			StudentProfile();
 			break;
 		case STUDENT_COURSE_TO_SELECT:
 			/* code */
