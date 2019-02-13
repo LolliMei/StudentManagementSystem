@@ -61,7 +61,24 @@ typedef struct
 
 typedef struct
 {
+	//工号
+	char id[20];
+	//名字
+	char name[20];
+	//性别
+	char sex[4];
+}Admin;
+
+typedef struct
+{
 	int type;
 	char username[20];
 	int verify;
 }User;
+
+#define PROFILE_NAME 1
+#define PROFILE_AGE 2
+#define PROFILE_SEX 3
+#define PROFILE_BIRTH 4
+#define PROFILE_MAJOR 5
+#define PROFILE_GRADE 6

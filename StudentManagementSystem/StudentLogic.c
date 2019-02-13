@@ -38,7 +38,7 @@ void LoadStudentInfo(Student* stud)
 	free(reply);
 }
 
-//学生档案 //TODO:: 增加修改功能
+//学生档案
 void StudentProfile()
 {
 	Student stud;
@@ -54,6 +54,16 @@ void StudentProfile()
 
 void StudentCourseToSelect()
 {
+	//查询开课班keys
+	redisReply* reply = redisCommand(context,"keys next_course:*:name");
+
+	//根据keys查询开课班名字
+	for (size_t i = 0; i < reply->elements; i++)
+	{
+		printf("%s \n",reply->element[i]->str);
+		redisReply* requestName = redisCommand(context, "get %s", reply->element[i]->str);
+		printf("courseName:%s\n",requestName->str);
+	}
 }
 
 void StudentCourseSelected()

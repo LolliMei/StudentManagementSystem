@@ -4,3 +4,4 @@
 #include "Query.h"
 
 UserType Login();
+

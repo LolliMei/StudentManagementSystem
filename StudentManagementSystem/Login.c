@@ -24,12 +24,12 @@ bool UserExists(int type, char* usr)
 			break;
 
 		case TEACHER:
-			reply = (redisReply*)redisCommand(context, "EXISTS login:student:%s", usr);
+			reply = (redisReply*)redisCommand(context, "EXISTS login:teacher:%s", usr);
 			return reply->type==REDIS_REPLY_INTEGER && reply->integer == 1 ? true : false;
 
 			break;
 		case ADMIN:
-			reply = (redisReply*)redisCommand(context, "EXISTS login:student:%s", usr);
+			reply = (redisReply*)redisCommand(context, "EXISTS login:admin:%s", usr);
 			return reply->type==REDIS_REPLY_INTEGER && reply->integer == 1 ? true : false;
 
 			break;
@@ -173,6 +173,7 @@ int LoginVerify(int type)
 	return 0;
 }
 
+//µÇÂ½×Ü´¦Àí
 int Login()
 {
 	while (!Verified)
